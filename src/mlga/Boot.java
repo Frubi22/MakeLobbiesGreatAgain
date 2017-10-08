@@ -87,32 +87,36 @@ public class Boot {
 		ui = new Overlay();
 		
 		while(running){
-			final Packet packet = handle.getNextPacket();
+			try{
+				final Packet packet = handle.getNextPacket();
 
-			if(packet != null){
-				final IpV4Packet ippacket = packet.get(IpV4Packet.class);
+				if(packet != null){
+					final IpV4Packet ippacket = packet.get(IpV4Packet.class);
 
-				if(ippacket != null){
-					final UdpPacket udppack = ippacket.get(UdpPacket.class);
+					if(ippacket != null){
+						final UdpPacket udppack = ippacket.get(UdpPacket.class);
 
-					if(udppack != null && udppack.getPayload() != null){
-						final int srcAddrHash = ippacket.getHeader().getSrcAddr().hashCode();
-						final int dstAddrHash = ippacket.getHeader().getDstAddr().hashCode();
-						final int payloadLen = udppack.getPayload().getRawData().length;
+						if(udppack != null && udppack.getPayload() != null){
+							final int srcAddrHash = ippacket.getHeader().getSrcAddr().hashCode();
+							final int dstAddrHash = ippacket.getHeader().getDstAddr().hashCode();
+							final int payloadLen = udppack.getPayload().getRawData().length;
 
-						if(active.containsKey(srcAddrHash) && srcAddrHash != addrHash){
-							if(active.get(srcAddrHash) != null && payloadLen == 68  //Packets are STUN related: 56 is request, 68 is response
-									&& dstAddrHash == addrHash){
-								ui.setPing(ippacket.getHeader().getSrcAddr(), handle.getTimestamp().getTime() - active.get(srcAddrHash).getTime());
-								active.put(srcAddrHash, null); //No longer expect ping
-							}
-						}else{
-							if(payloadLen == 56 && srcAddrHash == addrHash){
-								active.put(ippacket.getHeader().getDstAddr().hashCode(), handle.getTimestamp());
+							if(active.containsKey(srcAddrHash) && srcAddrHash != addrHash){
+								if(active.get(srcAddrHash) != null && payloadLen == 68  //Packets are STUN related: 56 is request, 68 is response
+										&& dstAddrHash == addrHash){
+									ui.setPing(ippacket.getHeader().getSrcAddr(), handle.getTimestamp().getTime() - active.get(srcAddrHash).getTime());
+									active.put(srcAddrHash, null); //No longer expect ping
+								}
+							}else{
+								if(payloadLen == 56 && srcAddrHash == addrHash){
+									active.put(ippacket.getHeader().getDstAddr().hashCode(), handle.getTimestamp());
+								}
 							}
 						}
 					}
 				}
+			}catch(Exception e){
+				System.out.println(e);
 			}
 		}
 	}
