@@ -207,17 +207,7 @@ public class GithubPanel extends JFrame{
 				if(vers.contains("-")){
 					vers = vers.substring(0, vers.indexOf("-")).trim();
 				}
-				double nv = 0.0;
-				try
-				{
-					nv = Double.parseDouble(vers);
-				}
-				catch(Exception e)
-				{
-					System.out.println("Version of update invalid");
-					System.out.println(e);
-				}
-				System.out.println(nv);
+				double nv = Double.parseDouble(vers);
 				if(nv <= this.version)
 					continue;// Skip older updates.
 				System.out.println("Version: "+nv);
