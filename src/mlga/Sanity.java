@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 
 import org.pcap4j.core.Pcaps;
 
-import mlga.ui.GithubPanel;
 
 public class Sanity {
-	private final static Double version = 1.40;
+	@SuppressWarnings("unused")
+	private final static Double version = 1.50;
 	private static boolean headless = false;
 
 	public static boolean check(){
-		boolean[] checks = {checkGraphics(), checkUpdate(), checkJava(), checkPCap()};
+		boolean[] checks = {checkGraphics(),  checkJava(), checkPCap()};
 
 		for(boolean check : checks){
 			if(!check)
@@ -69,14 +69,7 @@ public class Sanity {
 		return true;
 	}
 
-	public static boolean checkUpdate(){
-		GithubPanel mp = new GithubPanel(version);
-		if(!mp.prompt()){
-			message("At least one update located is mandatory!\nSome updates can be very important for functionality and your security.\nPlease update MLGA before running!");
-			return false;
-		}
-		return true;
-	}
+
 
 	private static void message(String out){
 		System.err.println(out);

@@ -16,7 +16,7 @@ public class IOPeer implements Serializable{
 	 * This allows for future changes without having to hunt down all calls to getStatus()
 	 */
 	public static enum Status{
-		UNRATED(-1), BLOCKED(0), LOVED(1);
+		UNRATED(0), STRIKE1(1), STRIKE2(2), BLOCKED(3), LOVED(4);
 		
 		public final int val;
 		Status(int value){

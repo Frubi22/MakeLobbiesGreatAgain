@@ -11,7 +11,6 @@ import mlga.io.DirectoryWatcher;
 import mlga.io.FileUtil;
 import mlga.io.Preferences;
 import mlga.io.peer.IOPeer.Status;
-import mlga.io.peer.kindred.Kindred;
 
 /**
  * Class for background parsing Dead by Daylight log files into pairing of UID:IP to enable persistant ratings past dynamic IP ranges.
@@ -25,7 +24,6 @@ public class PeerTracker implements Runnable{
 	private static boolean saving = false;
 	private String uid = null;
 	private boolean active = false;
-	private final Kindred kindred;
 
 	/**
 	 * Creates a PeerTracker, which instantly loads the Peer List into memory.  <br>
@@ -33,8 +31,7 @@ public class PeerTracker implements Runnable{
 	 * will keep the Peer List updated as new logs are created.
 	 */
 	public PeerTracker(){
-		//Initialize Kindred System.
-		this.kindred = new Kindred();
+
 
 		// PeerSavers create emergency backups, so loop to check primary file, then attempt fallback if needed.
 		for(int i = 0; i < 2; i++){
@@ -202,8 +199,7 @@ public class PeerTracker implements Runnable{
 			ret.addIP(ip);
 			peers.add(ret);
 		}
-		if(!ret.hasUID())
-			kindred.updatePeer(ret);
+
 
 		return ret;
 	}
@@ -276,7 +272,6 @@ public class PeerTracker implements Runnable{
 									matched = true;
 									if(newFile && !lastID.equals(iop.getUID().trim())){
 										lastID = iop.getUID().trim();
-										kindred.addPeer(iop);
 									}
 									break;
 								}
@@ -286,7 +281,6 @@ public class PeerTracker implements Runnable{
 								p.setUID(uid);
 								p.addIP(ina);
 								peers.add(p);
-								kindred.addPeer(p);
 								lastID = p.getUID();
 							}
 						} catch (UnknownHostException e) {
@@ -299,7 +293,6 @@ public class PeerTracker implements Runnable{
 
 				}
 			}
-			kindred.submit();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -9,7 +9,7 @@ import mlga.io.peer.IOPeer.Status;
 public class Peer {
 	private Inet4Address id;
 	private long ping = 0;
-	private boolean blocked;
+	private int strikes;
 	private boolean hasStatus = false;
 	private long last_seen;
 	
@@ -20,7 +20,7 @@ public class Peer {
 		this.id = hash;
 		this.hasStatus = io.getStatus()!=Status.UNRATED;
 		if(this.hasStatus){
-			this.blocked = io.getStatus()==Status.BLOCKED;
+			this.strikes = io.getStatus().val;
 		}
 		this.last_seen = System.currentTimeMillis();
 	}
@@ -41,14 +41,37 @@ public class Peer {
 	
 	/** If we have saved, and also blocked, this Peer. */
 	public boolean blocked(){
-		return this.hasStatus && this.blocked;
+		return this.hasStatus && this.strikes==3;
+	}
+	public int getStrikes(){
+		return this.strikes;
 	}
 	
 	/** Save our opinion of this Peer. */
-	public void rate(boolean block){
+	public void rate(int strike){
+		strike %=5;
 		this.hasStatus = true;
-		this.blocked = block;
-		this.io.setStatus(block?Status.BLOCKED:Status.LOVED);
+		this.strikes = strike;
+		switch(this.strikes)
+		{
+		case 0:
+			this.unsave();
+			break;
+		case 1:
+			this.io.setStatus(Status.STRIKE1);
+			break;
+		case 2: 
+			this.io.setStatus(Status.STRIKE2);
+			break;
+		case 3:
+			this.io.setStatus(Status.BLOCKED);
+			break;
+		case 4:
+			this.io.setStatus(Status.LOVED);
+			break;
+		default:
+				break;
+		}
 	}
 	
 	/** Remove this peer from the Preferences. */

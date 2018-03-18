@@ -66,13 +66,7 @@ public class Overlay extends JPanel {
 							return;
 
 						Peer p = peers.get(idx);
-						if(!p.saved()){
-							p.rate(true);
-						}else if(p.blocked()){
-							p.rate(false);
-						}else{
-							p.unsave();
-						}
+						p.rate(p.getStrikes()+1);
 					}else if (e.getClickCount() >= 2){
 						frameMove = !frameMove;
 						Settings.set("frame_x", frame.getLocationOnScreen().x);
@@ -227,7 +221,25 @@ public class Overlay extends JPanel {
 
 				String render = "Ping: "+ rtt;
 				if(p.saved())
-					render = (p.blocked() ? "BLOCKED: ":"LOVED: ") + rtt;
+				{
+					switch (p.getStrikes()) {
+					case 1:
+						render = "1 STRIKE: " + rtt;
+						break;
+					case 2:
+						render = "2 STRIKES: " + rtt;
+						break;
+					case 3:
+						render = "BLOCKED: " + rtt;
+						break;
+					case 4:
+						render = "LOVED: " + rtt;
+						break;
+					default:
+						break;
+					}
+				}
+
 				
 				g.drawString(render, 1, fh*(i+1));
 				++i;
