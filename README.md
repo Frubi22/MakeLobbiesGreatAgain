@@ -16,7 +16,7 @@ Primary Feature:
 
 Optional Features: 
 * Double-Click to lock/unlock the overlay for dragging
-* Shift + Left Click on a player, highlighted in a darker color for current selection, to toggle to BLOCKED, LOVED, or back to the normal display
+* Shift + Left Click on a player, highlighted in a darker color for current selection, to toggle to BLOCKED, 1 STRIKE, 2 STRIKES, LOVED, or back to the normal display
 * To exit, simply look for Jake's face in your system tray near the clock, right-click, and select Exit.
 
 ## HOW TO INSTALL AND USE:
