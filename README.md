@@ -9,7 +9,7 @@ Source: http://steamcommunity.com/app/381210/discussions/0/1319962683448307108/
 
 ## APPLICATION SUPPORTS BOTH KILLER AND SURVIVOR
 
-**NOTE**: If you were linked here from another source, such as Reddit, be sure to check for the latest versions for the best quality. You can find all versions here: [MLGA Releases](https://github.com/PsiLupan/MakeLobbiesGreatAgain/releases)
+**NOTE**: If you were linked here from another source, such as Reddit, be sure to check for the latest versions for the best quality. You can find all versions here: [MLGA Releases](https://github.com/Frubi22/MakeLobbiesGreatAgain/releases)
 
 Primary Feature:
 * Determining Ping
