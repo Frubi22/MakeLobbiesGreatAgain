@@ -32,7 +32,13 @@ public class PeerTracker implements Runnable{
 	 */
 	public PeerTracker(){
 
-
+		// Creates file if not already existing
+		try {
+			peerFile.getParentFile().mkdirs();
+			peerFile.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		// PeerSavers create emergency backups, so loop to check primary file, then attempt fallback if needed.
 		for(int i = 0; i < 2; i++){
 			try {
