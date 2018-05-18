@@ -6,7 +6,9 @@ It is not detected as a hack, since it does not and will not interact with the g
 
 ## APPLICATION SUPPORTS BOTH KILLER AND SURVIVOR
 
-**NOTE**: If you were linked here from another source, such as Reddit, be sure to check for the latest versions for the best quality. You can find all versions here: [MLGA Releases](https://github.com/Frubi22/MakeLobbiesGreatAgain/releases)
+**NOTE**: If you were linked here from another source, such as Reddit, be sure to check for the latest versions for the best quality. You can find all my versions here: [MLGA Releases](https://github.com/Frubi22/MakeLobbiesGreatAgain/releases)
+
+MLGA from other devs: [MLGA Forks](https://github.com/Frubi22/MakeLobbiesGreatAgain/network)
 
 Primary Feature:
 * Determining Ping
