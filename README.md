@@ -22,6 +22,7 @@ Optional Features:
 **System Requirements:**
 * Latest Java Runtime https://java.com/en/download/
 * Npcap from https://nmap.org/npcap/ and tick "Install Npcap in WinPcap API-compatible Mode" during installation (For advanced users: Add %SystemRoot%\System32\Npcap\ to PATH instead.)
+* Download MLGA here: [MLGA Forks](https://github.com/Frubi22/MakeLobbiesGreatAgain/network)
 
 Simply double double click on the MLGA.jar file to run
 
